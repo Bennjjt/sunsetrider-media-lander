@@ -40,8 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Large media — trailers exceed GitHub's 100 MB file limit; host via CDN/storage
+# Large media — all video served from Vercel Blob Storage
 /public/trailers/
+/public/clips/
 
 # Claude Code internal memory (not project source)
 .claude/

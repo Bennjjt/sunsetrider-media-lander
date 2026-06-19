@@ -24,8 +24,8 @@ const FILMS: Film[] = [
     year: 2019,
     genre: "Crime Thriller",
     runtime: "90 min",
-    clipSrc: "/clips/killing-lionel-clip.mp4",
-    trailerSrc: "/trailers/killing-lionel-trailer.mp4",
+    clipSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/killing-lionel-clip.mp4",
+    trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/killing-lionel-trailer.mp4",
   },
   {
     id: "cd",
@@ -34,8 +34,8 @@ const FILMS: Film[] = [
     total: "II",
     genre: "Crime Poker Thriller",
     runtime: "85 min",
-    clipSrc: "/clips/card-dead-clip.mp4",
-    trailerSrc: "/trailers/card-dead-trailer.mp4",
+    clipSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-clip.mp4",
+    trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-trailer.mp4",
     posterSrc: "/posters/card-dead-poster.jpg",
   },
 ];
