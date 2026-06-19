@@ -1,20 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm, ValidationError } from "@formspree/react";
+
+function isValidEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+}
 
 export default function EmailForm() {
   const [state, handleSubmit] = useForm("emailSignup");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const [consented, setConsented] = useState(false);
   const [consentError, setConsentError] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    if (!consented) {
+    const emailOk = isValidEmail(email);
+    const consentOk = consented;
+
+    if (!emailOk) setEmailError(true);
+    if (!consentOk) setConsentError(true);
+
+    if (!emailOk || !consentOk) {
       e.preventDefault();
-      setConsentError(true);
+      if (!emailOk) emailRef.current?.focus();
       return;
     }
-    setConsentError(false);
+
     return handleSubmit(e);
   }
 
@@ -31,36 +44,54 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
-      <div className="flex flex-col gap-3 sm:flex-row">
-        <label htmlFor="email-signup" className="sr-only">
-          Email address
-        </label>
-        <input
-          id="email-signup"
-          type="email"
-          name="email"
-          required
-          autoComplete="email"
-          placeholder="your@email.com"
-          className="email-input flex-1"
-          disabled={state.submitting}
-        />
-        <button
-          type="submit"
-          className="email-btn"
-          disabled={state.submitting}
-          aria-label="Subscribe to updates"
-        >
-          {state.submitting ? "Sending…" : "Keep me posted"}
-        </button>
-      </div>
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <label htmlFor="email-signup" className="sr-only">
+            Email address
+          </label>
+          <input
+            ref={emailRef}
+            id="email-signup"
+            type="email"
+            name="email"
+            autoComplete="email"
+            placeholder="your@email.com"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              if (emailError && isValidEmail(e.target.value)) setEmailError(false);
+            }}
+            onBlur={() => {
+              if (email && !isValidEmail(email)) setEmailError(true);
+            }}
+            className={`email-input flex-1${emailError ? " email-input--error" : ""}`}
+            disabled={state.submitting}
+            aria-describedby={emailError ? "email-error" : undefined}
+            aria-invalid={emailError}
+          />
+          <button
+            type="submit"
+            className="email-btn"
+            disabled={state.submitting}
+            aria-label="Subscribe to updates"
+          >
+            {state.submitting ? "Sending…" : "Keep me posted"}
+          </button>
+        </div>
 
-      <ValidationError
-        prefix="Email"
-        field="email"
-        errors={state.errors}
-        className="email-field-error"
-      />
+        {emailError && (
+          <p id="email-error" className="email-field-error" role="alert">
+            Please enter a valid email address.
+          </p>
+        )}
+
+        <ValidationError
+          prefix="Email"
+          field="email"
+          errors={state.errors}
+          className="email-field-error"
+        />
+      </div>
 
       <div className="flex flex-col gap-2">
         <label className="optin-label">
