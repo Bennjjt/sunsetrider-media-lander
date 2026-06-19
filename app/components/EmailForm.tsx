@@ -1,9 +1,22 @@
 "use client";
 
+import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 export default function EmailForm() {
   const [state, handleSubmit] = useForm("emailSignup");
+  const [consented, setConsented] = useState(false);
+  const [consentError, setConsentError] = useState(false);
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    if (!consented) {
+      e.preventDefault();
+      setConsentError(true);
+      return;
+    }
+    setConsentError(false);
+    return handleSubmit(e);
+  }
 
   if (state.succeeded) {
     return (
@@ -17,7 +30,7 @@ export default function EmailForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+    <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>
       <div className="flex flex-col gap-3 sm:flex-row">
         <label htmlFor="email-signup" className="sr-only">
           Email address
@@ -49,28 +62,42 @@ export default function EmailForm() {
         className="email-field-error"
       />
 
-      <label className="optin-label">
-        <input
-          type="checkbox"
-          name="marketing_consent"
-          value="yes"
-          required
-          className="optin-checkbox"
-          disabled={state.submitting}
-          aria-describedby="optin-desc"
-        />
-        <span id="optin-desc" className="optin-text">
-          I agree to receive updates from Sunsetrider Media. You can unsubscribe
-          at any time.
-        </span>
-      </label>
+      <div className="flex flex-col gap-2">
+        <label className="optin-label">
+          <input
+            type="checkbox"
+            name="marketing_consent"
+            value="yes"
+            checked={consented}
+            onChange={(e) => {
+              setConsented(e.target.checked);
+              if (e.target.checked) setConsentError(false);
+            }}
+            className="optin-checkbox"
+            disabled={state.submitting}
+            aria-describedby="optin-desc"
+            aria-invalid={consentError}
+          />
+          <span id="optin-desc" className="optin-text">
+            I agree to receive updates from Sunsetrider Media. You can
+            unsubscribe at any time.
+          </span>
+        </label>
 
-      <ValidationError
-        prefix="Consent"
-        field="marketing_consent"
-        errors={state.errors}
-        className="email-field-error"
-      />
+        {consentError && (
+          <p className="email-field-error" role="alert" aria-live="polite">
+            Please tick this box to continue.
+          </p>
+        )}
+
+        <p className="optin-disclaimer">
+          By submitting this form you agree to our{" "}
+          <a href="/privacy" className="optin-disclaimer-link">
+            Privacy Policy
+          </a>
+          .
+        </p>
+      </div>
     </form>
   );
 }

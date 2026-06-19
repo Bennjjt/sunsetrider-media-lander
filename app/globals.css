@@ -481,6 +481,25 @@ html {
   margin-top: -0.25rem;
 }
 
+.optin-disclaimer {
+  font-family: var(--font-barlow), sans-serif;
+  font-size: 0.72rem;
+  color: oklch(0.40 0.008 225);
+  text-align: left;
+  line-height: 1.5;
+}
+
+.optin-disclaimer-link {
+  color: oklch(0.40 0.008 225);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.optin-disclaimer-link:hover {
+  color: oklch(0.55 0.010 225);
+}
+
 .section-rule {
   border: none;
   border-top: 1px solid oklch(0.18 0.003 225);
