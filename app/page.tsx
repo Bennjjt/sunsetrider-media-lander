@@ -1,65 +1,144 @@
-import Image from "next/image";
+import HeroSection from "./components/HeroSection";
+import FilmShowcase from "./components/FilmShowcase";
+import EmailForm from "./components/EmailForm";
+
+function InstagramIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <main>
+      {/* ── SPLIT-SCREEN HERO (+ intro animation) ── */}
+      <HeroSection />
+
+      <hr className="section-rule" />
+
+      {/* ── FILM SHOWCASE ── */}
+      <FilmShowcase />
+
+      <hr className="section-rule" />
+
+      {/* ── PLATFORM BRIEF ── */}
+      {/* <section className="py-28 px-6 md:py-40 text-center">
+        <p
+          className="mx-auto max-w-[52ch] text-dim leading-relaxed text-pretty"
+          style={{ fontSize: "clamp(1rem, 1.8vw, 1.2rem)" }}
+        >
+          Sunsetrider Media is building a direct distribution platform for
+          independent filmmakers — a place where creators host their work and
+          audiences pay to watch it. No middlemen. No noise. Just films that
+          deserve an audience.
+        </p>
+      </section> */}
+
+      <hr className="section-rule" />
+
+      {/* ── INSTAGRAM ── */}
+      <section
+        className="py-24 px-6 md:py-32"
+        aria-labelledby="instagram-heading"
+      >
+        <div className="mx-auto max-w-5xl">
+          <div className="flex items-center justify-between mb-10">
+            <h2
+              id="instagram-heading"
+              className="font-condensed font-bold uppercase tracking-[-0.01em] text-ink"
+              style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)" }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
+              Instagram
+            </h2>
             <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="https://instagram.com/sunsetrider.media"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-dim hover:text-ink transition-colors duration-200 text-sm font-condensed tracking-[0.1em] uppercase"
+              aria-label="Follow Sunsetrider Media on Instagram"
             >
-              Learning
-            </a>{" "}
-            center.
+              <InstagramIcon size={18} />
+              <span>Follow</span>
+            </a>
+          </div>
+
+          {/* Feed placeholder grid — replace with embedded feed once linked */}
+          <div
+            className="grid gap-1"
+            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}
+          >
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="instagram-placeholder"
+                aria-hidden="true"
+              >
+                <InstagramIcon size={24} />
+                <span
+                  className="text-dim/50 text-[0.65rem] font-condensed tracking-[0.15em] uppercase"
+                >
+                  Coming soon
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-6 text-center text-dim/60 text-xs font-condensed tracking-[0.1em] uppercase">
+            Live feed will appear here once connected
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <hr className="section-rule" />
+
+      {/* ── EMAIL SIGNUP ── */}
+      <section className="py-28 px-6 md:py-40 text-center bg-panel">
+        <h2
+          className="font-condensed font-black uppercase leading-none tracking-[-0.02em] text-ink text-balance"
+          style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
+        >
+          Stay in the room
+        </h2>
+        <p
+          className="mt-4 text-dim"
+          style={{ fontSize: "clamp(0.9rem, 1.4vw, 1rem)" }}
+        >
+          Be first to know when we open the doors.
+        </p>
+        <div className="mt-10 mx-auto max-w-md">
+          <EmailForm />
+          <p className="mt-4 text-dim/50 text-xs">
+            No spam. Unsubscribe anytime.
+          </p>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="py-10 px-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between border-t border-panel/60">
+        <span className="text-dim text-xs font-condensed tracking-[0.1em] uppercase">
+          © 2026 Sunsetrider Media
+        </span>
+        <a
+          href="https://instagram.com/sunsetrider.media"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-dim hover:text-ink transition-colors duration-200"
+          aria-label="Sunsetrider Media on Instagram"
+        >
+          <InstagramIcon />
+        </a>
+      </footer>
+    </main>
   );
 }

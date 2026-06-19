@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large media — trailers exceed GitHub's 100 MB file limit; host via CDN/storage
+/public/trailers/
+
+# Claude Code internal memory (not project source)
+.claude/
