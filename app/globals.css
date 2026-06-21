@@ -640,6 +640,23 @@ html {
   border-radius: 2px;
 }
 
+.showcase-imdb-link {
+  display: inline-flex;
+  margin-top: 1.5rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.showcase-imdb-link:hover {
+  opacity: 1;
+}
+
+.showcase-imdb-link:focus-visible {
+  outline: 2px solid oklch(0.553 0.205 32.4);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
 /* ── Scroll reveal ── */
 .showcase-film.will-animate .showcase-poster-col {
   opacity: 0;

@@ -15,6 +15,7 @@ interface Film {
   posterWidth: number;
   posterHeight: number;
   trailerSrc: string;
+  imdbUrl: string;
   posterSide: "left" | "right";
   bgVariant: "canvas" | "panel";
 }
@@ -33,6 +34,7 @@ const FILMS: Film[] = [
     posterWidth: 2175,
     posterHeight: 3150,
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/killing-lionel-trailer.mp4",
+    imdbUrl: "https://www.imdb.com/title/tt3796088",
     posterSide: "left",
     bgVariant: "canvas",
   },
@@ -49,6 +51,7 @@ const FILMS: Film[] = [
     posterWidth: 1125,
     posterHeight: 1500,
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-trailer.mp4",
+    imdbUrl: "https://www.imdb.com/title/tt5554082",
     posterSide: "right",
     bgVariant: "panel",
   },
@@ -150,6 +153,16 @@ function FilmEntry({ film }: { film: Film }) {
             Watch Trailer
             <ArrowIcon />
           </button>
+
+          <a
+            href={film.imdbUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="showcase-imdb-link"
+            aria-label={`${film.title} on IMDb`}
+          >
+            <ImdbIcon />
+          </a>
         </div>
       </div>
 
@@ -200,6 +213,32 @@ export default function FilmShowcase() {
         </div>
       ))}
     </section>
+  );
+}
+
+function ImdbIcon() {
+  return (
+    <svg
+      width="36"
+      height="18"
+      viewBox="0 0 36 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect width="36" height="18" rx="3" fill="#F5C518" />
+      <text
+        x="4"
+        y="13.5"
+        fontFamily="Arial, sans-serif"
+        fontWeight="800"
+        fontSize="11"
+        fill="#000000"
+        letterSpacing="0.2"
+      >
+        IMDb
+      </text>
+    </svg>
   );
 }
 
