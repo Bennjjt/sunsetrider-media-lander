@@ -135,6 +135,7 @@ export default function HeroSection() {
               className={["split-side", isHovered && "expanded", isContracted && "contracted"]
                 .filter(Boolean).join(" ")}
               onMouseEnter={() => setHoveredSide(side)}
+              onTouchStart={() => setHoveredSide(side)}
             >
               {/* Looping background clip */}
               <video
@@ -167,6 +168,7 @@ export default function HeroSection() {
                 <button
                   className="play-btn"
                   onClick={() => openModal(film)}
+                  onTouchStart={(e) => e.stopPropagation()}
                   aria-label={`Watch the trailer for ${film.title}`}
                 >
                   <span className="play-circle" aria-hidden="true">

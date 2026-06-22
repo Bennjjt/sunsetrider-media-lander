@@ -16,6 +16,7 @@ interface Film {
   posterHeight: number;
   trailerSrc: string;
   imdbUrl: string;
+  instagramUrl?: string;
   posterSide: "left" | "right";
   bgVariant: "canvas" | "panel";
 }
@@ -35,6 +36,7 @@ const FILMS: Film[] = [
     posterHeight: 3150,
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/killing-lionel-trailer.mp4",
     imdbUrl: "https://www.imdb.com/title/tt3796088",
+    instagramUrl: "https://www.instagram.com/killing_lionel/",
     posterSide: "left",
     bgVariant: "canvas",
   },
@@ -52,6 +54,7 @@ const FILMS: Film[] = [
     posterHeight: 1500,
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-trailer.mp4",
     imdbUrl: "https://www.imdb.com/title/tt5554082",
+    instagramUrl: "https://www.instagram.com/card_dead_/",
     posterSide: "right",
     bgVariant: "panel",
   },
@@ -154,15 +157,28 @@ function FilmEntry({ film }: { film: Film }) {
             <ArrowIcon />
           </button>
 
-          <a
-            href={film.imdbUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="showcase-imdb-link"
-            aria-label={`${film.title} on IMDb`}
-          >
-            <ImdbIcon />
-          </a>
+          <div className="showcase-social-row">
+            <a
+              href={film.imdbUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="showcase-social-link"
+              aria-label={`${film.title} on IMDb`}
+            >
+              <ImdbIcon />
+            </a>
+            {film.instagramUrl && (
+              <a
+                href={film.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="showcase-social-link"
+                aria-label={`${film.title} on Instagram`}
+              >
+                <InstagramIcon />
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
@@ -238,6 +254,23 @@ function ImdbIcon() {
       >
         IMDb
       </text>
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" strokeWidth="1.75" />
+      <circle cx="12" cy="12" r="4.25" stroke="currentColor" strokeWidth="1.75" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
     </svg>
   );
 }

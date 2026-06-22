@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
 }
 
-export default function EmailForm() {
+export default function EmailForm({ onSuccess }: { onSuccess?: () => void }) {
   const [state, handleSubmit] = useForm("emailSignup");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [consented, setConsented] = useState(false);
   const [consentError, setConsentError] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (state.succeeded) onSuccess?.();
+  }, [state.succeeded, onSuccess]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     const emailOk = isValidEmail(email);
@@ -31,16 +35,7 @@ export default function EmailForm() {
     return handleSubmit(e);
   }
 
-  if (state.succeeded) {
-    return (
-      <p
-        className="text-brand font-condensed font-bold text-xl tracking-wide uppercase"
-        aria-live="polite"
-      >
-        You&rsquo;re in the room.
-      </p>
-    );
-  }
+  if (state.succeeded) return null;
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-5" noValidate>

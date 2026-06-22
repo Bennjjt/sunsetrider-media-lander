@@ -1,6 +1,7 @@
+import Image from "next/image";
 import HeroSection from "./components/HeroSection";
 import FilmShowcase from "./components/FilmShowcase";
-import EmailForm from "./components/EmailForm";
+import SignupSection from "./components/SignupSection";
 
 function InstagramIcon({ size = 22 }: { size?: number }) {
   return (
@@ -52,8 +53,8 @@ export default function Home() {
         className="py-24 px-6 md:py-32"
         aria-labelledby="instagram-heading"
       >
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center justify-between mb-10">
+        <div className="mx-auto max-w-2xl">
+          <div className="flex items-center justify-between mb-8">
             <h2
               id="instagram-heading"
               className="font-condensed font-bold uppercase tracking-[-0.01em] text-ink"
@@ -62,7 +63,7 @@ export default function Home() {
               Instagram
             </h2>
             <a
-              href="https://instagram.com/sunsetrider.media"
+              href="https://www.instagram.com/sunsetr1der/reels/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-dim hover:text-ink transition-colors duration-200 text-sm font-condensed tracking-[0.1em] uppercase"
@@ -73,56 +74,41 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Feed placeholder grid — replace with embedded feed once linked */}
-          <div
-            className="grid gap-1"
-            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}
-          >
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="instagram-placeholder"
-                aria-hidden="true"
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "3px" }}>
+            {[
+              "onset-01","onset-02","onset-03",
+              "onset-04","onset-05","onset-06",
+              "onset-07","onset-08","onset-09",
+            ].map((name) => (
+              <a
+                key={name}
+                href="https://www.instagram.com/sunsetr1der/reels/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View on Instagram"
+                style={{ position: "relative", display: "block", aspectRatio: "1", overflow: "hidden" }}
+                className="onset-cell"
               >
-                <InstagramIcon size={24} />
-                <span
-                  className="text-dim/50 text-[0.65rem] font-condensed tracking-[0.15em] uppercase"
-                >
-                  Coming soon
-                </span>
-              </div>
+                <Image
+                  src={`/on-set/web/${name}.webp`}
+                  alt="On set"
+                  fill
+                  className="onset-img"
+                  sizes="(max-width: 640px) 33vw, 22vw"
+                />
+                <div className="onset-overlay" aria-hidden="true">
+                  <InstagramIcon size={20} />
+                </div>
+              </a>
             ))}
           </div>
-
-          <p className="mt-6 text-center text-dim/60 text-xs font-condensed tracking-[0.1em] uppercase">
-            Live feed will appear here once connected
-          </p>
         </div>
       </section>
 
       <hr className="section-rule" />
 
       {/* ── EMAIL SIGNUP ── */}
-      <section className="py-28 px-6 md:py-40 text-center bg-panel">
-        <h2
-          className="font-condensed font-black uppercase leading-none tracking-[-0.02em] text-ink text-balance"
-          style={{ fontSize: "clamp(2.25rem, 6vw, 4rem)" }}
-        >
-          Stay in the room
-        </h2>
-        <p
-          className="mt-4 text-dim"
-          style={{ fontSize: "clamp(0.9rem, 1.4vw, 1rem)" }}
-        >
-          Be first to know when we open the doors.
-        </p>
-        <div className="mt-10 mx-auto max-w-md">
-          <EmailForm />
-          <p className="mt-4 text-dim/50 text-xs">
-            No spam. Unsubscribe anytime.
-          </p>
-        </div>
-      </section>
+      <SignupSection />
 
       {/* ── FOOTER ── */}
       <footer className="py-10 px-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-between border-t border-panel/60">
@@ -130,7 +116,7 @@ export default function Home() {
           © 2026 Sunsetrider Media
         </span>
         <a
-          href="https://instagram.com/sunsetrider.media"
+          href="https://www.instagram.com/sunsetr1der/reels/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-dim hover:text-ink transition-colors duration-200"
