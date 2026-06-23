@@ -92,7 +92,7 @@ export default function Navbar() {
           <TikTokIcon size={20} />
         </a>
         <a
-          href="https://www.facebook.com/share/g/1DtPqyYdUg/?mibextid=wwXIfr"
+          href="https://www.facebook.com/share/197NK2SfWV/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Sunsetrider Media on Facebook"

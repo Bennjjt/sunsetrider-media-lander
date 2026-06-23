@@ -171,7 +171,7 @@ export default function Home() {
             <TikTokIcon />
           </a>
           <a
-            href="https://www.facebook.com/share/g/1DtPqyYdUg/?mibextid=wwXIfr"
+            href="https://www.facebook.com/share/197NK2SfWV/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-dim hover:text-ink transition-colors duration-200"
