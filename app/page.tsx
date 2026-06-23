@@ -20,6 +20,42 @@ function InstagramIcon({ size = 22 }: { size?: number }) {
   );
 }
 
+function TikTokIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path d="M16.6 5.82a4.28 4.28 0 0 1-2.66-2.66h-2.94v12.1a2.6 2.6 0 1 1-2.6-2.6c.22 0 .43.02.63.07V9.7a5.55 5.55 0 0 0-.63-.04A5.57 5.57 0 1 0 14 15.23v-6.1a7.18 7.18 0 0 0 4.2 1.34V7.5a4.27 4.27 0 0 1-1.6-1.68z" />
+    </svg>
+  );
+}
+
+function FacebookIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M14.5 8.5h2V5.5h-2c-2.2 0-3.5 1.49-3.5 3.6V11H9v3h2v6h3v-6h2.2l.6-3H14v-1.4c0-.83.34-1.1 1-1.1Z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <main>
@@ -115,15 +151,35 @@ export default function Home() {
         <span className="text-dim text-xs font-condensed tracking-[0.1em] uppercase">
           © 2026 Sunsetrider Media
         </span>
-        <a
-          href="https://www.instagram.com/sunsetr1der/reels/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-dim hover:text-ink transition-colors duration-200"
-          aria-label="Sunsetrider Media on Instagram"
-        >
-          <InstagramIcon />
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://www.instagram.com/sunsetr1der/reels/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dim hover:text-ink transition-colors duration-200"
+            aria-label="Sunsetrider Media on Instagram"
+          >
+            <InstagramIcon />
+          </a>
+          <a
+            href="https://www.tiktok.com/@sunsetr1der7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dim hover:text-ink transition-colors duration-200"
+            aria-label="Sunsetrider Media on TikTok"
+          >
+            <TikTokIcon />
+          </a>
+          <a
+            href="https://www.facebook.com/share/g/1DtPqyYdUg/?mibextid=wwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dim hover:text-ink transition-colors duration-200"
+            aria-label="Sunsetrider Media on Facebook"
+          >
+            <FacebookIcon />
+          </a>
+        </div>
       </footer>
     </main>
   );

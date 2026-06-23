@@ -36,7 +36,7 @@ const FILMS: Film[] = [
     runtime: "85 min",
     clipSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-clip.mp4",
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-trailer.mp4",
-    posterSrc: "/posters/card-dead-poster.jpg",
+    posterSrc: "/posters/card-dead-poster.webp",
   },
 ];
 
@@ -49,6 +49,25 @@ export default function HeroSection() {
   const modalVideoRef = useRef<HTMLVideoElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const [logoSize, setLogoSize] = useState<number | null>(null);
+  const sideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [loadedClips, setLoadedClips] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = (entry.target as HTMLElement).dataset.filmId;
+          if (!id) return;
+          setLoadedClips((prev) => (prev.has(id) ? prev : new Set(prev).add(id)));
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "200px" }
+    );
+    sideRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     if (wordmarkRef.current) {
@@ -128,26 +147,31 @@ export default function HeroSection() {
           const side = i === 0 ? "left" : "right";
           const isHovered = hoveredSide === side;
           const isContracted = hoveredSide !== null && !isHovered;
+          const isLoaded = loadedClips.has(film.id);
 
           return (
             <div
               key={film.id}
+              ref={(el) => { sideRefs.current[i] = el; }}
+              data-film-id={film.id}
               className={["split-side", isHovered && "expanded", isContracted && "contracted"]
                 .filter(Boolean).join(" ")}
               onMouseEnter={() => setHoveredSide(side)}
               onTouchStart={() => setHoveredSide(side)}
             >
-              {/* Looping background clip */}
-              <video
-                className="split-video"
-                src={film.clipSrc}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-hidden="true"
-              />
+              {/* Looping background clip — deferred until its panel is near the viewport */}
+              {isLoaded && (
+                <video
+                  className="split-video"
+                  src={film.clipSrc}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden="true"
+                />
+              )}
 
               {/* Dark gradient overlay */}
               <div className="split-overlay" aria-hidden="true" />

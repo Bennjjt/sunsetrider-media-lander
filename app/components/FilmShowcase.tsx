@@ -48,8 +48,8 @@ const FILMS: Film[] = [
     genre: "Crime · Poker Thriller",
     runtime: "85 min",
     synopsis:
-      "Released from prison having served three of a five-year sentence, Woody walks out looking for one thing. Closure. He visits his old boss Jack Crooks with a proposition — a high-stakes poker game. Eyes are watched, cards are dealt, old scores wait to be settled. Eagle-eyed viewers of Killing Lionel will pick up the crossover references. Both films work without each other. They also tie together nicely.",
-    posterSrc: "/posters/card-dead-poster.jpg",
+      "After serving five years in prison, Woody walks free with a single goal — revenge. Determined to settle old scores, he approaches his former boss, Jack Crooks, with a proposition: one final high-stakes poker game. Set three years after the events of Killing Lionel, Card Dead plunges audiences back into the dangerous world of the Crooks crime empire, where loyalty is fleeting and betrayal comes at a deadly cost.",
+    posterSrc: "/posters/card-dead-poster.webp",
     posterWidth: 1125,
     posterHeight: 1500,
     trailerSrc: "https://pvyl9ubvvdzwpsbc.public.blob.vercel-storage.com/card-dead-trailer.mp4",
