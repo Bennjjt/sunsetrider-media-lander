@@ -50,7 +50,19 @@ export default function HeroSection() {
   const wordmarkRef = useRef<HTMLDivElement>(null);
   const [logoSize, setLogoSize] = useState<number | null>(null);
   const sideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const clipRefs = useRef<Record<string, HTMLVideoElement | null>>({});
   const [loadedClips, setLoadedClips] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    loadedClips.forEach((id) => {
+      const video = clipRefs.current[id];
+      // iOS Safari doesn't reliably honor the autoplay attribute on videos
+      // inserted after initial mount — force playback explicitly instead.
+      if (video && video.paused) {
+        video.play().catch(() => {});
+      }
+    });
+  }, [loadedClips]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -162,6 +174,7 @@ export default function HeroSection() {
               {/* Looping background clip — deferred until its panel is near the viewport */}
               {isLoaded && (
                 <video
+                  ref={(el) => { clipRefs.current[film.id] = el; }}
                   className="split-video"
                   src={film.clipSrc}
                   autoPlay
@@ -170,6 +183,10 @@ export default function HeroSection() {
                   playsInline
                   preload="auto"
                   aria-hidden="true"
+                  onLoadedData={(e) => {
+                    const video = e.currentTarget;
+                    if (video.paused) video.play().catch(() => {});
+                  }}
                 />
               )}
 
